@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import Country from './Component/Country/Country';
+import Cart from './Component/Cart/Cart';
 
 function App() {
   const [country,setCountry] = useState([])
@@ -18,11 +19,23 @@ function App() {
       border: '1px solid grey',
       cursor: 'pointer'
   }
+  const divStyle={
+    border: '1px solid lightblue',
+    padding: '5px'
+  }
+  const [cart, setCart] = useState([])
+  const handleCountry = (country) =>{
+    const newCart = [...cart,country]
+    setCart(newCart);
+  }
+
   return (
     <div className="App">
       <h1> Total Country:  {country.length} </h1>
+      <h4>Country added : {cart.length}</h4>
+      <Cart cart={cart}></Cart>
       {
-      country.map(cnt => <Country style={style} flag={cnt.flag}></Country>)
+      country.map(country => <Country handleCountry={handleCountry} divStyle={divStyle} style={style} country={country}></Country>)
       }
     </div>
   );
